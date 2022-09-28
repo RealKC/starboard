@@ -1,4 +1,15 @@
-pub struct MyApp {
+use eframe::egui;
+
+fn main() {
+    let options = eframe::NativeOptions::default();
+    eframe::run_native(
+        "My egui App",
+        options,
+        Box::new(|_cc| Box::new(MyApp::default())),
+    );
+}
+
+struct MyApp {
     name: String,
     age: u32,
 }
@@ -12,8 +23,8 @@ impl Default for MyApp {
     }
 }
 
-impl MyApp {
-    pub fn update(&mut self, ctx: &egui::Context) {
+impl eframe::App for MyApp {
+    fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.heading("My egui Application");
             ui.horizontal(|ui| {
